@@ -3,8 +3,8 @@
 Similus is a Ruby library that allows to find similar objects and recommendations using generated activity.
 Examples of usage:
 
-* Find similar articles to another one based on what other users also viewed.
-* Recommend articles to a user based on similar activity of other users.
+* Find similar articles based on what other users also viewed.
+* Recommend articles to users based on their activity.
 
 == Authors
 
@@ -29,7 +29,7 @@ Before using Similus, you need to setup the redis configuration. In rails this c
 
 === Store activity
 
-Locate where you want to store activity. For example, in Ruby on Rails, inside the show method of the ArticlesController class: 
+Locate where you want to store activity. For example, in Ruby on Rails, inside the show method of the ArticlesController class:
 
   class ArticlesController < ApplicationController
     def show
@@ -42,12 +42,12 @@ Locate where you want to store activity. For example, in Ruby on Rails, inside t
 
 Once there is some activity stored by users, you can query for similar objects:
 
-class ArticlesController < ApplicationController
-  def show
-    @article = Article.find(params[:id])
-    @similar_articles = Similus.similar_to(@article)
+  class ArticlesController < ApplicationController
+    def show
+      @article = Article.find(params[:id])
+      @similar_articles = Similus.similar_to(@article)
+    end
   end
-end
 
 === Show recommended objects
 
@@ -55,21 +55,17 @@ Even better than just showing similar articles, show recommended articles for th
 
 class HomeController < ApplicationController
   def index
-    @recommended_articles = Similus.recommended_for(current_user, :target => "Article")
+    @recommended_articles = Similus.recommended_for(current_user)
   end
 end
 
 == Configuring and installing Similus
 
-As of current version, Similus only supports redis backend. Thus, you need the redis gem and a redis server started. 
+As of current version, Similus only supports redis backend.
 
-* Install Redis 2.0 from [http://code.google.com/p/redis/]
+Install Redis 2.0 from [http://code.google.com/p/redis/] and start the server.
 
-* Install the redis gem
-
-  gem install redis
-  
-* Install the Similus gem
+Install the Similus gem:
 
   gem install similus
 
