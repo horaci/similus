@@ -53,11 +53,11 @@ Once there is some activity stored by users, you can query for similar objects:
 
 Even better than just showing similar articles, show recommended articles for the user's previous activity when there is a logged in user:
 
-class HomeController < ApplicationController
-  def index
-    @recommended_articles = Similus.recommended_for(current_user)
+  class HomeController < ApplicationController
+    def index
+      @recommended_articles = Similus.recommended_for(current_user)
+    end
   end
-end
 
 == Configuring and installing Similus
 
